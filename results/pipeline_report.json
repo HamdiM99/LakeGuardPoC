@@ -1,0 +1,79 @@
+{
+  "bronze_rows": {
+    "customers": 40,
+    "kyc": 40,
+    "transactions": 494,
+    "auth_events": 1,
+    "devices": 41,
+    "beneficiaries": 41
+  },
+  "silver_tx": 481,
+  "quarantined": 13,
+  "timeline": 564,
+  "chunks": 9,
+  "flagged_chunks": 1,
+  "reasons": {
+    "bad_amount": 5,
+    "null_customer": 2,
+    "duplicate": 3,
+    "bad_iban": 3
+  },
+  "checks": [
+    {
+      "check": "silver.transactions: tx_id unique",
+      "passed": true,
+      "critical": true,
+      "detail": "481 rows"
+    },
+    {
+      "check": "silver.transactions: no nulls in key columns",
+      "passed": true,
+      "critical": true,
+      "detail": "tx_id, customer_id, amount, ts"
+    },
+    {
+      "check": "silver.transactions: amount > 0",
+      "passed": true,
+      "critical": true,
+      "detail": "min(amount) > 0"
+    },
+    {
+      "check": "silver.customers: id unique",
+      "passed": true,
+      "critical": true,
+      "detail": "40 rows"
+    },
+    {
+      "check": "referential integrity: transactions -> customers",
+      "passed": true,
+      "critical": true,
+      "detail": "0 orphans"
+    },
+    {
+      "check": "reconciliation: bronze = silver + quarantine",
+      "passed": true,
+      "critical": true,
+      "detail": "494 = 481 + 13"
+    },
+    {
+      "check": "quarantine rate under 25%",
+      "passed": true,
+      "critical": true,
+      "detail": "2.6%"
+    },
+    {
+      "check": "gold.timeline not empty",
+      "passed": true,
+      "critical": true,
+      "detail": "564 events"
+    },
+    {
+      "check": "documents: suspected injection chunks (informational)",
+      "passed": true,
+      "critical": false,
+      "detail": "1 flagged of 9"
+    }
+  ],
+  "seconds": 4.25,
+  "ok": true
+}
