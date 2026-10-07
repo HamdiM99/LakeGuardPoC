@@ -1,0 +1,13 @@
+[project]
+name = "lakeguard"
+version = "0.1.0"
+description = "Reference stack: lakehouse, ETL, RAG, agent and a case-scoped control plane"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = ["deltalake>=1.0", "duckdb>=1.0", "pyarrow>=15"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools]
+packages = ["lakeguard", "lakeguard.control"]
